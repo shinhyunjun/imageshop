@@ -19,4 +19,6 @@
         <put-attribute name="title" value="CodeGroup"/>
         <put-attribute name="content" value="/WEB-INF/views/codegroup/{1}.jsp"/>
     </definition>
+
+
 </tiles-definitions>
