@@ -10,7 +10,7 @@
 
 <body>
 
-<tiles:insertAttribute name="header" />
+<tiles:insertAttribute name="header"  />
 
 <tiles:insertAttribute name="menu" />
 
