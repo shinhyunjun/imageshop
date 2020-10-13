@@ -76,6 +76,7 @@ public class BoardController {
         pagination.setTotalCount(service.count(pageRequest));
 
         model.addAttribute("pagination", pagination);
+        model.addAttribute("pageRequest", pageRequest);
 
         // 검색유형의 코드명과 코드값을 정의한다.
         List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
