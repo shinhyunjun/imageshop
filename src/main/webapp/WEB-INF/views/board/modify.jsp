@@ -9,9 +9,11 @@
 <form:form modelAttribute="board" action="modify">
     <form:hidden path="boardNo" />
 
-    <!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달-->
+    <!-- 현재 페이지 번호, 페이징 크기, 검색유형, 검색어를 숨겨진 필드 요소를 사용하여 전달-->
     <input type="hidden" name="page" value="${pgrq.page}">
     <input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+    <input type="hidden" name="searchType" value="${pgrq.searchType}">
+    <input type="hidden" name="keyword" value="${pgrq.keyword}">
 
 
     <table>

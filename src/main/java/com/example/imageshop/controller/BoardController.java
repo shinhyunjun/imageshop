@@ -5,6 +5,7 @@ import com.example.imageshop.common.security.domain.CustomUser;
 import com.example.imageshop.common.security.domain.PageRequest;
 import com.example.imageshop.common.security.domain.Pagination;
 import com.example.imageshop.domain.Board;
+import com.example.imageshop.domain.CodeLabelValue;
 import com.example.imageshop.domain.Member;
 import com.example.imageshop.service.BoardService;
 
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -68,9 +72,23 @@ public class BoardController {
         Pagination pagination = new Pagination();
         pagination.setPageRequest(pageRequest);
 
-        pagination.setTotalCount(service.count());
+        //페이지 네비게이션 정보에 검색처리된 게시글 건수를 저장한다.
+        pagination.setTotalCount(service.count(pageRequest));
 
         model.addAttribute("pagination", pagination);
+
+        // 검색유형의 코드명과 코드값을 정의한다.
+        List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
+        searchTypeCodeValueList.add(new CodeLabelValue("n", "---"));
+        searchTypeCodeValueList.add(new CodeLabelValue("t", "Title"));
+        searchTypeCodeValueList.add(new CodeLabelValue("c", "Content"));
+        searchTypeCodeValueList.add(new CodeLabelValue("w", "Writer"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content"));
+        searchTypeCodeValueList.add(new CodeLabelValue("cw", "Content OR Writer"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tcw", "Title OR Content OR Writer"));
+
+        model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
+
     }
 
     /*
@@ -114,6 +132,12 @@ public class BoardController {
        rttr.addAttribute("page", pageRequest.getPage());
        rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
 
+       // 검색유형과 검색어를 뷰에 전달한다.
+       rttr.addAttribute("searchType", pageRequest.getSearchType());
+       rttr.addAttribute("keyword", pageRequest.getKeyword());
+
+
+       //검색유형과 검색어를 뷰에 전달한다.
        rttr.addFlashAttribute("msg", "SUCCESS");
 
         return "redirect:/board/list";
@@ -160,6 +184,11 @@ public class BoardController {
         // RedirectAttributes 객체에 일회성 데이터를 지정하면 전달한다.
         rttr.addAttribute("page", pageRequest.getPage());
         rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+
+        // 검색유형과 검색어를 뷰에 전달한다.
+        rttr.addAttribute("searchType", pageRequest.getSearchType());
+        rttr.addAttribute("keyword", pageRequest.getKeyword());
+
 
         rttr.addFlashAttribute("msg", "SUCCESS");
 

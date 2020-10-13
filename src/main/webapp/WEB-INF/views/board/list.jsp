@@ -7,6 +7,15 @@
 
 <h2><spring:message code="board.header.list" /></h2>
 
+<!-- 검색폼 만들기 -->
+<form:form modelAttribute="pgrq" method="get" action="list${pgrq.toUriStringByPage(1)}">
+    <form:select path="searchType" items="${searchTypeCodeValueList}" itemValue="value" itemLabel="label" />
+
+    <form:input path="keyword" />
+    <button id='searchBtn'><spring:message code="action.search" /></button>
+</form:form>
+
+
 <sec:authorize access="hasRole('ROLE_MEMBER')">
     <a href="register"><spring:message code="action.new" /></a>
 </sec:authorize>
@@ -32,7 +41,7 @@
                     <td align="center">${board.boardNo}</td>
 
                     <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
-                    <td align="left"><a href="/board/read${pagination.makeQuery(pagination.pageRequest.page)}&boardNo=${board.boardNo}">${board.title}</a></td>
+                    <td align="left"><a href="/board/read${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}"><c:out value="${board.title}" /></a></td>
                     <td align="right">${board.writer}</td>
                     <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
                 </tr>
