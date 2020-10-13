@@ -9,6 +9,11 @@
 <form:form modelAttribute="board" action="modify">
     <form:hidden path="boardNo" />
 
+    <!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달-->
+    <input type="hidden" name="page" value="${pgrq.page}">
+    <input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+
+
     <table>
         <tr>
             <td><spring:message code="board.title" /></td>
@@ -54,7 +59,11 @@
         });
 
         $("#btnList").on("click", function() {
-            self.location = "list";
+
+           // self.location = "list";
+
+            //페이징관련 정보를 쿼리 파라미터로 전달
+            self.location = "list${pgrq.toUriString()}";
         });
 
     });

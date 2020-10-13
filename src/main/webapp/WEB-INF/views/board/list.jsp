@@ -30,7 +30,9 @@
             <c:forEach items="${list}" var="board">
                 <tr>
                     <td align="center">${board.boardNo}</td>
-                    <td align="left"><a href='/board/read?boardNo=${board.boardNo}'>${board.title}</a></td>
+
+                    <!-- 게시글 상세보기할 때 페이징 요청정보를 매개변수로 전달-->
+                    <td align="left"><a href="/board/read${pagination.makeQuery(pagination.pageRequest.page)}&boardNo=${board.boardNo}">${board.title}</a></td>
                     <td align="right">${board.writer}</td>
                     <td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" /></td>
                 </tr>
@@ -38,6 +40,21 @@
         </c:otherwise>
     </c:choose>
 </table>
+
+<!-- 페이징 네비게이션 -->
+<div>
+    <c:if test="${pagination.prev}">
+        <a href="${pagination.startPage - 1}">&laquo;</a>
+    </c:if>
+
+    <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
+        <a href="/board/list${pagination.makeQuery(idx)}">${idx}</a>
+    </c:forEach>
+
+    <c:if test="${pagination.next && pagination.endPage > 0}">
+        <a href="${pagination.endPage +1}">&raquo;</a>
+    </c:if>
+</div>
 
 <script>
     var result = "${msg}";

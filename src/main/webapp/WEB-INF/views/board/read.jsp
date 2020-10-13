@@ -9,6 +9,11 @@
 <form:form modelAttribute="board">
     <form:hidden path="boardNo" />
 
+    <!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달-->
+    <input type="hidden" name="page" value="${pgrq.page}">
+    <input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+
+
     <table>
         <tr>
             <td><spring:message code="board.title" /></td>
@@ -51,20 +56,36 @@
 
         var formObj = $("#board");
 
+        // 현재 페이지 번호와 페이징 크기
+        var pageObj = $("#page");
+        var sizePerPageObj = $("#sizePerPage");
+
+        var pageVal = pageObj.val();
+        var sizePerPageVal = sizePerPageObj.val();
+
+
         $("#btnEdit").on("click", function() {
             var boardNo = $("#boardNo");
             var boardNoVal = boardNo.val();
 
-            self.location = "/board/modify?boardNo="+boardNoVal;
+           // self.location = "/board/modify?boardNo="+boardNoVal;
+            // 페이징관련 정보와 게시글번호를 쿼리 파라미터로 전달
+            self.location = "/board/modify${pgrq.toUriString()}" + "&boardNo=" + boardNoVal;
+
         });
 
         $("#btnRemove").on("click", function() {
+
             formObj.attr("action", "/board/remove");
             formObj.submit();
         });
 
         $("#btnList").on("click", function() {
-            self.location = "/board/list";
+
+            // self.location = "/board/list";
+            // 페이징관련 정보를 쿼리 파라미터를 전달
+            self.location = "/board/list${pgrq.toUriString()}";
+
         });
 
     });
