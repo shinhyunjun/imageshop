@@ -10,6 +10,9 @@
             <!-- 로그인을 하지 않은 경우 -->
             <sec:authorize access="!isAuthenticated()">
                 <td width="120"><a href="/board/list"><spring:message code="menu.board.member" /></a></td>
+                <td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>
+                <td width="120"><a href="/item/list"><spring:message code="menu.item.member" /></a></td>
+
             </sec:authorize>
 
             <!-- 인증된 사용자인 경우 -->
@@ -17,17 +20,27 @@
 
             <sec:authorize access="hasRole('ROLE_ADMIN')">
 
-            <td width="120"><a href="/codegroup/list"><spring:message code="menu.codegroup.list" /></a></td>
-            <td width="120"><a href="/codedetail/list"><spring:message code="menu.codedetail.list" /></a></td>
+                <td width="120"><a href="/codegroup/list"><spring:message code="menu.codegroup.list" /></a></td>
+                 <td width="120"><a href="/codedetail/list"><spring:message code="menu.codedetail.list" /></a></td>
 
-            <!-- 회원관리를 메뉴에 추가-->
-            <td width="120"><a href="/user/list"><spring:message code="menu.user.admin" /></a></td>
+              <!-- 회원관리를 메뉴에 추가-->
+                <td width="120"><a href="/user/list"><spring:message code="menu.user.admin" /></a></td>
                 <td width="120"><a href="/board/list"><spring:message code="menu.board.member" /></a></td>
-           </sec:authorize>
+                <td width="120"><a href="/notice/list"><spring:message code="menu.notice.admin" /></a></td>
+                <td width="120"><a href="/item/list"><spring:message code="menu.item.admin" /></a></td>
+
+            </sec:authorize>
 
                 <!--회원 권한을 가진 사용자인 경우 -->
            <sec:authorize access="hasRole('ROLE_MEMBER')">
                <td width="120"><a href="/board/list"><spring:message code="menu.board.member" /></a></td>
+               <td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>
+               <td width="120"><a href="/item/list"><spring:message code="menu.item.member" /></a></td>
+               <td width="120"><a href="/coin/charge"><spring:message code="menu.coin.charge" /></a></td>
+               <td width="120"><a href="/coin/list"><spring:message code="menu.coin.list" /></a></td>
+               <td width="120"><a href="/useritem/list"><spring:message code="menu.useritem.list" /></a></td>
+               <td width="120"><a href="/coin/listPay"><spring:message code="menu.coin.listPay" /></a></td>
+
            </sec:authorize>
 
             </sec:authorize>

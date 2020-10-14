@@ -22,4 +22,5 @@ public interface MemberService {
     //최초 관리자 생성을 위한 데이터 등록
     public void setupAdmin(Member member) throws Exception;
 
+    public int getCoin(int userNo) throws Exception;
 }

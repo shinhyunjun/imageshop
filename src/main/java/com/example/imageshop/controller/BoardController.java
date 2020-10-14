@@ -126,8 +126,8 @@ public class BoardController {
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
     public String remove(int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
-        service.remove(boardNo);
 
+       service.remove(boardNo);
 
         //RedirectAttributes 객체에 일회성 데이터를 지정한여 전달한다.
        rttr.addAttribute("page", pageRequest.getPage());
